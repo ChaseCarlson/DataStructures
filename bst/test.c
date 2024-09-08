@@ -33,6 +33,8 @@ void bst_test_example_tree()
 {
     bst_node* root = gen_bst_example_tree();
 
+    /* Check tree positions */
+
     assert(root->data == 30);
 
     assert(root->left->data == 20);
@@ -51,6 +53,17 @@ void bst_test_example_tree()
     assert(root->right->left->right->data == 37);
     assert(root->right->right->left->data == 45);
     assert(root->right->right->right->data == 100);
+
+    /* Find node by value tests */
+
+    assert(bst_node_find(root, 30) == root);
+
+    assert(bst_node_find(root, 40) == root->right);
+
+    assert(bst_node_find(root, 35) == root->right->left);
+
+    assert(bst_node_find(root, 29) == root->left->right->right);
+    assert(bst_node_find(root, 100) == root->right->right->right);
 }
 
 void bst_test_run_all()

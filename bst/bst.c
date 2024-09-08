@@ -68,3 +68,19 @@ bst_node *bst_node_insert(bst_node *root, int val)
     _bst_node_insert_node(root, new);
     return new;
 }
+
+bst_node *bst_node_find(bst_node *root, int val)
+{
+    if (val == root->data) return root;
+
+    if (val < root->data && root->left)
+    {
+        return bst_node_find(root->left, val);
+    }
+    else if (val > root->data && root->right)
+    {
+        return bst_node_find(root->right, val);
+    }
+
+    return NULL;
+}
