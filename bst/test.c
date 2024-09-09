@@ -1,6 +1,8 @@
 #include "test.h"
 #include <stdio.h>
 #include <assert.h>
+#include <stdlib.h>
+#include <time.h>
 #include "bst.h"
 
 bst_node* gen_default_bst()
@@ -26,6 +28,26 @@ bst_node* gen_default_bst()
 
     bst_insert(root, 6);
     bst_insert(root, 400);
+
+    return root;
+}
+
+int random_between(int a, int b)
+{
+    return (((float)rand())/((float)RAND_MAX)*(b-a))+a;
+}
+
+bst_node* gen_random_bst()
+{
+    int min = -1000;
+    int max = 1000;
+    bst_node* root = bst_node_new(random_between(min, max));
+
+    int i;
+    for (i=0; i<random_between(100, 1000); i++)
+    {
+        bst_insert(root, random_between(min, max));
+    }
 
     return root;
 }
@@ -88,8 +110,21 @@ void test_default_bst()
     assert(bst_validate(root));
 }
 
+void test_random_bst()
+{
+    printf("Testing random BST\n");
+    srand(time(NULL));
+    int i;
+    for (i=0;i<100000;i++)
+    {
+        bst_node* root = gen_random_bst();
+        assert(bst_validate(root));
+    }
+}
+
 void test_bst()
 {
     printf("BST Tests Running\n");
     test_default_bst();
+    test_random_bst();
 }
