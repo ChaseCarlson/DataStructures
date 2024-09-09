@@ -3,3 +3,4 @@ project(DataStructures)
 
 add_subdirectory(linked_list)
 add_subdirectory(bst)
+add_subdirectory(heap)
